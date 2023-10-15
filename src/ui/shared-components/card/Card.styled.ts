@@ -1,23 +1,28 @@
 import styled from "styled-components";
 import { BodyContainer } from "../atoms/container/Container.styled";
 
-export const LargeCard = styled(BodyContainer)`
+const BaseCard = styled(BodyContainer)`
+  background-color: white;
+  box-shadow: 1px 1px 3px black;
+  border-radius: 5px;
+`;
+
+export const LargeCard = styled(BaseCard)`
   width: 100%;
   height: 400px;
-  background-color: red;
 `;
 
-export const MediumCard = styled(BodyContainer)`
+export const MediumCard = styled(BaseCard)`
   height: 300px;
   width: 100%;
-  background-color: saddlebrown;
+  /* background-color: gray; */
 `;
 
-export const ShortCard = styled(BodyContainer)`
+export const ShortCard = styled(BaseCard)`
   min-height: 100px;
   height: 100%;
   width: 100%;
-  background-color: green;
+  /* background-color: green; */
 `;
 
 export const CardsRow = styled(BodyContainer)`

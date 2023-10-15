@@ -7,6 +7,7 @@ import {
   ShortCard,
 } from "../../../shared-components/card/Card.styled";
 import { ContentboardStyled } from "./Contentboard.styled";
+import Projects from "./components-content/projects/Projects";
 
 const Contentboard = () => {
   return (
@@ -27,9 +28,11 @@ const Contentboard = () => {
         </CardsRow>
 
         <CardsRow>
-          <MediumCard></MediumCard>
-          <MediumCard></MediumCard>
-          <MediumCard></MediumCard>
+          {/* <MediumCard> */}
+          <Projects />
+          {/* </MediumCard> */}
+          <MediumCard> Saa</MediumCard>
+          {/* <MediumCard></MediumCard> */}
         </CardsRow>
 
         <CardsRow>
