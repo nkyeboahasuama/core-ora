@@ -7,7 +7,7 @@ import {
 import { MediumCard } from "../../../../../shared-components/card/Card.styled";
 import SingleProject from "./SingleProject";
 
-const Projects = () => {
+const ProjectsCard = () => {
   const projectData = [
     { name: "Project 1", status: "Active", head: "Head 1" },
     { name: "Project 2", status: "Completed", head: "Head 2" },
@@ -37,27 +37,27 @@ const Projects = () => {
           <table
             style={{
               width: "100%",
-              color: "#BDB76B",
               fontSize: "20px",
             }}
           >
-            <thead>
+            <thead style={{ color: "#BDB76B" }}>
               <tr>
                 <th>Name</th>
                 <th>Status</th>
                 <th>Head</th>
               </tr>
             </thead>
-          </table>
-          {projectData.map((project) => (
-            <SingleProject project={project} />
-          ))}
-          {/* </tbody>
+
+            {projectData.map((project) => (
+              <SingleProject project={project} />
+            ))}
+            {/* </tbody>
           </table> */}
+          </table>
         </BodyContainer>
       </BodyContainer>
     </MediumCard>
   );
 };
 
-export default Projects;
+export default ProjectsCard;

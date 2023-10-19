@@ -5,8 +5,8 @@ import { BiMessage, BiSearch } from "react-icons/bi";
 
 export const HeaderStyled = styled(BodyContainer)`
   background-color: black;
-  /* width: calc(100vw - 300px); */
-  width: 100%;
+  width: calc(100vw - 300px);
+  /* width: 100%; */
   /* max-width: 100vw; */
   height: 80px;
   color: white;

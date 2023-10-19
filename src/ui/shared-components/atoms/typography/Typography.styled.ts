@@ -21,15 +21,15 @@ export const Base = styled.p<BaseProps>`
 `;
 
 export const HeaderOne = styled(Base)`
-  font-size: 25px;
+  font-size: 24px;
   font-weight: ${({ weight }) => weight || 700};
 `;
 export const HeaderTwo = styled(Base)`
-  font-size: 20px;
+  font-size: 19px;
   font-weight: ${({ weight }) => weight || 600};
 `;
 export const HeaderThree = styled(Base)`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: ${({ weight }) => weight || 500};
 `;
 export const Normal = styled(Base)`

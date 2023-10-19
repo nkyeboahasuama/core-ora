@@ -13,7 +13,19 @@ interface ISingleProjectProp {
 const SingleProject: React.FC<ISingleProjectProp> = ({ project }) => {
   return (
     <>
-      <BodyContainer
+      <tbody>
+        <tr>
+          <td>{project.name}</td>
+          <td>
+            <BodyContainer>
+              <StatusChip status={project.status} />
+              {project.status}
+            </BodyContainer>
+          </td>
+          <td>{project.head}</td>
+        </tr>
+      </tbody>
+      {/* <BodyContainer
         justifyContent="space-around"
         style={{
           padding: "7px 0px",
@@ -31,7 +43,7 @@ const SingleProject: React.FC<ISingleProjectProp> = ({ project }) => {
         <BodyContainer>
           <HeaderThree color="black">{project.head}</HeaderThree>
         </BodyContainer>
-      </BodyContainer>
+      </BodyContainer> */}
     </>
   );
 };
