@@ -18,7 +18,7 @@ const Sidebar = () => {
         Core Ora
       </HeaderOne>
       <SidebarLinkContainer>
-        <SidebarLink to="/dashboard">
+        <SidebarLink to="/">
           <div
             style={{
               width: "80%",

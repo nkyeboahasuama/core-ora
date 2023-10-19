@@ -22,7 +22,7 @@ function App() {
             <Routes>
               <Route path="/team" element={<Team />}></Route>
               <Route path="/projects" element={<Projects />}></Route>
-              <Route path="/dashboard" element={<Contentboard />}></Route>
+              <Route path="/" element={<Contentboard />}></Route>
             </Routes>
           </BodyContainer>
         </HomeStyled>

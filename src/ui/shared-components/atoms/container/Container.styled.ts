@@ -12,6 +12,7 @@ export interface IBaseContainerProps
   backgroundColor?: string;
   justifyContent?: string;
   alignItems?: string;
+  color?: string;
 }
 
 // export const BaseContainer = styled.div<IBaseContainerProps>`
@@ -31,4 +32,5 @@ export const BodyContainer = styled.div<IBaseContainerProps>`
   padding: ${({ padding }) => padding};
   margin: ${({ margin }) => margin};
   background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ color }) => color || "white"};
 `;

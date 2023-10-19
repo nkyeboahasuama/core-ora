@@ -38,7 +38,7 @@ export const SidebarLink = styled(Link)`
   }
 
   &:hover {
-    width: 80%;
+    width: 90%;
     border-radius: 10px;
     background-color: white;
     color: slategray;
