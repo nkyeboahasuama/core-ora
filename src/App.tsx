@@ -9,6 +9,7 @@ import { HomeStyled } from "./ui/Home.styled";
 import { BodyContainer } from "./ui/shared-components/atoms/container/Container.styled";
 import Header from "./ui/boards/main-board/header-board/Header";
 import Projects from "./ui/pages/Projects/Projects";
+import Tasks from "./ui/pages/ManageTasks/Tasks";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Header />
             <Routes>
               <Route path="/team" element={<Team />}></Route>
+              <Route path="/tasks" element={<Tasks />}></Route>
               <Route path="/projects" element={<Projects />}></Route>
               <Route path="/" element={<Contentboard />}></Route>
             </Routes>

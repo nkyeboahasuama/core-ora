@@ -3,10 +3,11 @@ import {
   HeaderThree,
 } from "../../shared-components/atoms/typography/Typography.styled";
 import {
+  SidebarHeader,
   SidebarLink,
   SidebarLinkContainer,
   SidebarStyled,
-} from "./Sidebar.styled";
+} from "./Sidebar.styles";
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { FaUsers, FaTasks, FaQuestionCircle } from "react-icons/fa";
 import { GiNetworkBars } from "react-icons/gi";
@@ -14,9 +15,8 @@ import { BiHelpCircle } from "react-icons/bi";
 const Sidebar = () => {
   return (
     <SidebarStyled>
-      <HeaderOne color="White" p="20px" m="0 0 10px 0">
-        Core Ora
-      </HeaderOne>
+      <SidebarHeader>Core Ora</SidebarHeader>
+
       <SidebarLinkContainer>
         <SidebarLink to="/">
           <div
@@ -33,18 +33,7 @@ const Sidebar = () => {
         </SidebarLink>
       </SidebarLinkContainer>
 
-      <HeaderThree
-        weight={600}
-        color="#e0e0e0"
-        style={{
-          display: "flex",
-          justifyContent: "start",
-          width: "70%",
-          margin: "10px auto",
-        }}
-      >
-        Data
-      </HeaderThree>
+      <SidebarHeader subHeader>Data</SidebarHeader>
       <SidebarLinkContainer>
         <SidebarLink to="/team">
           <div
@@ -86,18 +75,7 @@ const Sidebar = () => {
           </div>
         </SidebarLink>
       </SidebarLinkContainer>
-      <HeaderThree
-        weight={600}
-        color="#e0e0e0"
-        style={{
-          display: "flex",
-          justifyContent: "start",
-          width: "70%",
-          margin: "10px auto",
-        }}
-      >
-        FAQ
-      </HeaderThree>
+      <SidebarHeader subHeader>FAQ</SidebarHeader>
       <SidebarLinkContainer>
         <SidebarLink to={"/setting"}>
           <div

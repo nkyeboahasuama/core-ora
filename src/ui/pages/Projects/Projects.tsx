@@ -21,7 +21,7 @@ const Projects = () => {
             color: "white",
           }}
         >
-          <thead style={{ fontWeight: 700, background: "#333" }}>
+          <thead style={{ fontWeight: 700, background: "#330" }}>
             <tr>
               <th style={cellStyle}>Name</th>
               <th style={cellStyle}>Head</th>

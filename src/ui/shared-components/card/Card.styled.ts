@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BodyContainer } from "../atoms/container/Container.styled";
 
 const BaseCard = styled(BodyContainer)`
-  background-color: white;
+  background-color: #272727;
   box-shadow: 1px 1px 3px black;
   border-radius: 5px;
 `;

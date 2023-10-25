@@ -13,7 +13,7 @@ export const Base = styled.p<BaseProps>`
   font-weight: 300;
   padding: ${({ p }) => p || "0px"};
   margin: ${({ m }) => m || "0px"};
-  color: ${({ color }) => color || "black"};
+  color: ${({ color }) => color || "#fcfcfc"};
   text-align: ${({ textalign }) => textalign};
   :link {
     text-decoration: none;
