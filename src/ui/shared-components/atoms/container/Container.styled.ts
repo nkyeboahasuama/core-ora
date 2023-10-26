@@ -46,4 +46,5 @@ export const Container = styled(BaseContainer)`
   height: calc(100vh - 80px);
   width: 100%;
   padding: 20px;
+  overflow-y: auto;
 `;

@@ -6,7 +6,6 @@ interface IStatusProps {
 }
 const Status: React.FC<IStatusProps> = ({ status }) => {
   const editted = status.replace(/\s/g, "").toLocaleLowerCase();
-  console.log(editted);
   if (StatusStyles.hasOwnProperty(editted)) {
     const StatusContainer = StatusStyles[editted as keyof typeof StatusStyles];
     return <StatusContainer>{status}</StatusContainer>;

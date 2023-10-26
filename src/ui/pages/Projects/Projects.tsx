@@ -1,54 +1,46 @@
-import React from "react";
-import { BodyContainer } from "../../shared-components/atoms/container/Container.styled";
-import { ProjectContainer } from "./Projects.styles";
+import {
+  BodyContainer,
+  Container,
+} from "../../shared-components/atoms/container/Container.styled";
+import ProjectTable from "./Projects.styles";
 import tableData from "../../utils/randomProjects";
-
-const cellPadding = "10px";
-
-const cellStyle = {
-  padding: cellPadding,
-  color: "white",
-};
+import PageHeading from "../../shared-components/headings/PageHeading";
+import Table from "../ManageTasks/Tasks.styles";
 
 const Projects = () => {
   return (
-    <ProjectContainer>
-      <BodyContainer width="100%" padding="20px 0">
-        <table
-          style={{
-            border: "2px solid forestgreen",
-            width: "80%",
-            color: "white",
-          }}
-        >
-          <thead style={{ fontWeight: 700, background: "#330" }}>
-            <tr>
-              <th style={cellStyle}>Name</th>
-              <th style={cellStyle}>Head</th>
-              <th style={cellStyle}>Contributors</th>
-              <th style={cellStyle}>Start</th>
-              <th style={cellStyle}>Deadline</th>
-            </tr>
-          </thead>
-          <tbody>
+    <Container>
+      <PageHeading text="Projects" />
+      <BodyContainer width="100%" margin="20px 0">
+        <ProjectTable.StyledTable>
+          <ProjectTable.THead>
+            <Table.TR>
+              {Object.keys(tableData[0]).map((data) => (
+                <Table.TH>
+                  {data.slice(0, 1).toLocaleUpperCase() + data.slice(1)}
+                </Table.TH>
+              ))}
+            </Table.TR>
+          </ProjectTable.THead>
+          <Table.TBody>
             {tableData.map((data, index) => (
-              <tr
+              <Table.TR
                 key={data.Name}
                 style={{
                   background: index % 2 === 0 ? "#616161" : "#333",
                 }}
               >
-                <td style={cellStyle}>{data.Name} </td>
-                <td style={cellStyle}>{data.Head} </td>
-                <td style={cellStyle}>{data.Contributors} </td>
-                <td style={cellStyle}>{data.Start} </td>
-                <td style={cellStyle}>{data.Deadline} </td>
-              </tr>
+                <Table.TD>{data.Name} </Table.TD>
+                <Table.TD>{data.Head} </Table.TD>
+                <Table.TD>{data.Contributors} </Table.TD>
+                <Table.TD>{data.Start} </Table.TD>
+                <Table.TD>{data.Deadline} </Table.TD>
+              </Table.TR>
             ))}
-          </tbody>
-        </table>
+          </Table.TBody>
+        </ProjectTable.StyledTable>
       </BodyContainer>
-    </ProjectContainer>
+    </Container>
   );
 };
 

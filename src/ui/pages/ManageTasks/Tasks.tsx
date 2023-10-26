@@ -6,101 +6,42 @@ import {
 import { HeaderOne } from "../../shared-components/atoms/typography/Typography.styled";
 import Priority from "../../shared-components/chips/Priority";
 import Status from "../../shared-components/chips/Status";
-
-const trStyle = {
-  "border-bottom": "1px solid #ddd",
-  padding: "10px",
-  "text-align": "center",
-};
-
-const cellPadding = "20px 0";
-
-const cellStyle = {
-  padding: cellPadding,
-  color: "white",
-  // "text-align": "center",
-
-  // "border-right": "1px solid white",
-};
-
-const tasks = [
-  {
-    name: "Fix button color",
-    project: "Eureka",
-    priority: "High",
-    assigned: "Eugene",
-    dueDate: "11/02/23",
-    status: "In progress",
-  },
-  {
-    name: "Fix button color",
-    project: "Eureka",
-    priority: "Medium",
-    assigned: "Eugene",
-    dueDate: "11/02/23",
-    status: "Done",
-  },
-  {
-    name: "Fix button color",
-    project: "Eureka",
-    priority: "Regular",
-    assigned: "Eugene",
-    dueDate: "11/02/23",
-    status: "In progress",
-  },
-];
+import { tasks } from "./tasksData";
+import Table from "./Tasks.styles";
+import PageHeading from "../../shared-components/headings/PageHeading";
 
 const Tasks = () => {
   return (
     <Container>
-      <HeaderOne
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "end",
-          padding: "10px 0",
-
-          borderBottom: "2px solid black",
-        }}
-      >
-        Project Tasks
-      </HeaderOne>
+      <PageHeading text="Project Tasks" />
       <BodyContainer width="100%" margin="20px 0">
-        <table style={{ borderCollapse: "collapse", width: "100%" }}>
-          <thead
-            style={{
-              backgroundColor: "red",
-              color: "#ddd",
-              fontSize: "0.9rem",
-              textAlign: "left",
-            }}
-          >
-            <tr style={trStyle}>
-              <th>Tasks</th>
-              <th>Project</th>
-              <th>Priority</th>
-              <th>Assigned to</th>
-              <th>Due Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table.StyledTable>
+          <Table.THead>
+            <Table.TR>
+              {Object.keys(tasks[0]).map((task, index) => (
+                <Table.TH key={index}>
+                  {task.slice(0, 1).toLocaleUpperCase() + task.slice(1)}
+                </Table.TH>
+              ))}
+            </Table.TR>
+          </Table.THead>
+          <Table.TBody>
             {tasks.map((task, index) => (
-              <tr style={trStyle} key={index}>
-                <td style={cellStyle}>{task.name} </td>
-                <td style={cellStyle}>{task.project} </td>
-                <td>
+              <Table.TR key={index}>
+                <Table.TD>{task.name} </Table.TD>
+                <Table.TD>{task.project} </Table.TD>
+                <Table.TD>
                   <Priority value={task.priority} />
-                </td>
-                <td style={cellStyle}>{task.assigned} </td>
-                <td style={cellStyle}>{task.dueDate} </td>
-                <td style={cellStyle}>
+                </Table.TD>
+                <Table.TD>{task.assigned} </Table.TD>
+                <Table.TD>{task.dueDate} </Table.TD>
+                <Table.TD>
                   <Status status={task.status} />
-                </td>
-              </tr>
+                </Table.TD>
+              </Table.TR>
             ))}
-          </tbody>
-        </table>
+          </Table.TBody>
+        </Table.StyledTable>
       </BodyContainer>
     </Container>
   );

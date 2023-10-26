@@ -11,7 +11,7 @@ interface SidebarHeaderProps {
 export const SidebarStyled = styled.div`
   display: flex;
   align-items: start;
-  /* padding: 0px 20px; */
+  padding: 0px 20px;
   height: 100vh;
   width: 300px;
   background-color: #1f4f4f;

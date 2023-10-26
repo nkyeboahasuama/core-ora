@@ -10,6 +10,7 @@ export const HeaderStyled = styled(BodyContainer)`
   width: calc(100vw - 300px);
   height: 80px;
   color: white;
+  padding: 0px 20px;
   @media (max-width: 700px) {
     width: 100vw;
   }
