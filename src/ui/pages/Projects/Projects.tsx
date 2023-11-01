@@ -24,18 +24,13 @@ const Projects = () => {
           </ProjectTable.THead>
           <Table.TBody>
             {tableData.map((data, index) => (
-              <Table.TR
-                key={data.Name}
-                style={{
-                  background: index % 2 === 0 ? "#616161" : "#333",
-                }}
-              >
+              <ProjectTable.TR key={index}>
                 <Table.TD>{data.Name} </Table.TD>
                 <Table.TD>{data.Head} </Table.TD>
                 <Table.TD>{data.Contributors} </Table.TD>
                 <Table.TD>{data.Start} </Table.TD>
                 <Table.TD>{data.Deadline} </Table.TD>
-              </Table.TR>
+              </ProjectTable.TR>
             ))}
           </Table.TBody>
         </ProjectTable.StyledTable>

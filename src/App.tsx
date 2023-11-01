@@ -7,15 +7,19 @@ import Sidebar from "./ui/boards/side-board/Sidebar";
 import Contentboard from "./ui/boards/main-board/content-board/Contentboard";
 import { HomeStyled } from "./ui/Home.styled";
 import { BodyContainer } from "./ui/shared-components/atoms/container/Container.styled";
-import Header from "./ui/boards/main-board/header-board/Header";
+// import Header from "./ui/boards/main-board/header-board/Header";
+import Header from "./grooves-player/layout/header/Header";
 import Projects from "./ui/pages/Projects/Projects";
 import Tasks from "./ui/pages/ManageTasks/Tasks";
+import SplitScreen from "./grooves-player/layout/SplitScreen";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <HomeStyled>
+        <Header />
+        <SplitScreen />
+        {/* <HomeStyled>
           <Sidebar />
 
           <BodyContainer flexDir="column" justifyContent="start">
@@ -27,7 +31,7 @@ function App() {
               <Route path="/" element={<Contentboard />}></Route>
             </Routes>
           </BodyContainer>
-        </HomeStyled>
+        </HomeStyled> */}
       </BrowserRouter>
 
       {/* <Home /> */}
