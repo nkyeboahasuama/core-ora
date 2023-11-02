@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const HeaderStyled = styled.nav`
+export const HeaderStyled = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-around;
   height: 80px;
-  background-color: black;
+  background-color: #1c1;
   color: white;
   font-size: 30px;
   width: 100vw;
