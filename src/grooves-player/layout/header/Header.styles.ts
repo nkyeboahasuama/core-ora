@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
@@ -13,7 +14,7 @@ export const HeaderStyled = styled.header`
   padding: 0 20px;
 `;
 
-export const ProfileIcon = styled.div`
+export const ProfileIcon = styled(Link)`
   height: 40px;
   width: 40px;
   border-radius: 50%;

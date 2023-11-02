@@ -11,7 +11,7 @@ const Header = () => {
         <HeaderOne>Grooves</HeaderOne>
       </GroovesLogoContainer>
       <Searchbar />
-      <ProfileIcon />
+      <ProfileIcon to={"/profile"} />
     </HeaderStyled>
   );
 };

@@ -3,7 +3,6 @@ import "./App.css";
 import Home from "./ui/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Team from "./ui/pages/ManageTeam/Team";
-import Sidebar from "./ui/boards/side-board/Sidebar";
 import Contentboard from "./ui/boards/main-board/content-board/Contentboard";
 import { HomeStyled } from "./ui/Home.styled";
 import { BodyContainer } from "./ui/shared-components/atoms/container/Container.styled";
@@ -11,14 +10,26 @@ import { BodyContainer } from "./ui/shared-components/atoms/container/Container.
 import Header from "./grooves-player/layout/header/Header";
 import Projects from "./ui/pages/Projects/Projects";
 import Tasks from "./ui/pages/ManageTasks/Tasks";
-import SplitScreen from "./grooves-player/layout/SplitScreen";
+import HomePage from "./grooves-player/pages/homepage/HomePage";
+import ProfilePage from "./grooves-player/pages/profilepage/ProfilePage";
+import Sidebar from "./grooves-player/layout/sidebar/Sidebar";
+import MainSection from "./grooves-player/layout/main/MainSection";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
-        <SplitScreen />
+        <div style={{ display: "flex" }}>
+          <Sidebar />
+          <MainSection>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+            </Routes>
+          </MainSection>
+        </div>
+
         {/* <HomeStyled>
           <Sidebar />
 
