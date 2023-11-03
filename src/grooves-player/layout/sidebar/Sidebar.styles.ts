@@ -8,7 +8,9 @@ export const SidebarStyled = styled.nav`
   display: flex;
   flex-direction: column;
   background-color: #101010;
-  height: calc(100vh - 80px);
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
 
   @media (max-width: 760px) {
     display: none;

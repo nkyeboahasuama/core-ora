@@ -37,6 +37,7 @@ const BaseContainer = styled.div<IBaseContainerProps>`
 
 export const BodyContainer = styled(BaseContainer)<IBaseContainerProps>`
   display: flex;
+  background-color: #121212;
 `;
 
 export const Container = styled(BaseContainer)`

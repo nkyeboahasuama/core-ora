@@ -10,24 +10,14 @@ import {
   Medium,
 } from "../../../ui/shared-components/atoms/typography/Typography.styled";
 import { Link } from "react-router-dom";
-import PlayBtnContainer from "./PlayBtnContainer";
+import SongContainer from "./SongContainer";
 
-const songs = songsGenerator(10);
+const songs = songsGenerator(20);
 const HomePage = () => {
   return (
     <HomePageWrapper>
       {songs.map((song, idx) => (
-        <SongWrapper key={idx}>
-          <Link to={`/${song.title + idx}`}>
-            <SongCard>
-              <PlayBtnContainer />
-            </SongCard>
-          </Link>
-          <SongDetails>
-            <HeaderTwo>{song.title}</HeaderTwo>
-            <Medium>{song.artiste}</Medium>
-          </SongDetails>
-        </SongWrapper>
+        <SongContainer song={song} key={idx} />
       ))}
     </HomePageWrapper>
   );

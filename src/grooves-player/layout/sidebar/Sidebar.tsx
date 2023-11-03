@@ -9,10 +9,14 @@ import {
 } from "./Sidebar.styles";
 import { BiHome, BiListOl, BiSolidSearch } from "react-icons/bi";
 import { IoAlbumsOutline } from "react-icons/io5";
+import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.styles";
 
 const Sidebar = () => {
   return (
     <SidebarStyled>
+      <GroovesLogoContainer>
+        <HeaderOne>Grooves</HeaderOne>
+      </GroovesLogoContainer>
       <NavLinkContainer>
         <HeaderWrapper>
           <HeaderOne>LIBRARY</HeaderOne>
@@ -22,10 +26,7 @@ const Sidebar = () => {
           <SidebarNavLink to={"/"}>
             <BiHome /> Home
           </SidebarNavLink>
-          <SidebarNavLink to={"/about"}>
-            <IoAlbumsOutline />
-            About
-          </SidebarNavLink>
+
           <SidebarNavLink to={"/search"}>
             <BiSolidSearch />
             Search

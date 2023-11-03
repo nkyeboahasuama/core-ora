@@ -1,18 +1,13 @@
-import React from "react";
-import { HeaderStyled, ProfileIcon } from "./Header.styles";
-import { HeaderOne } from "../../../ui/shared-components/atoms/typography/Typography.styled";
-import Searchbar from "../../shared/searchbar/Searchbar";
-import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.styles";
+import { HeaderContainer, ProfileIcon } from "./Header.styles";
+
+import Navigation from "./Navigation";
 
 const Header = () => {
   return (
-    <HeaderStyled>
-      <GroovesLogoContainer>
-        <HeaderOne>Grooves</HeaderOne>
-      </GroovesLogoContainer>
-      <Searchbar />
+    <HeaderContainer>
+      <Navigation />
       <ProfileIcon to={"/profile"} />
-    </HeaderStyled>
+    </HeaderContainer>
   );
 };
 
