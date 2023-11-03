@@ -9,7 +9,7 @@ const Home = () => {
     <HomeStyled>
       <Sidebar />
 
-      <BodyContainer flexDir="column">
+      <BodyContainer dir="column">
         <Header />
         <Contentboard />
       </BodyContainer>

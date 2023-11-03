@@ -12,15 +12,15 @@ import ProjectsCard from "./components-content/projects/ProjectsCard";
 const Contentboard = () => {
   return (
     <ContentboardStyled>
-      <BodyContainer padding="20px 0px" width="100%">
+      <BodyContainer p="20px 0px" width="100%">
         <HeaderOne color="black">Administrators console</HeaderOne>
       </BodyContainer>
-      <BodyContainer width="90%" flexDir="column" gap="20px" padding="20px 0px">
+      <BodyContainer width="90%" dir="column" gap="20px" p="20px 0px">
         <CardsRow>
           <BodyContainer width="70%">
             <LargeCard></LargeCard>
           </BodyContainer>
-          <BodyContainer width="30%" height="400px" flexDir="column" gap="20px">
+          <BodyContainer width="30%" height="400px" dir="column" gap="20px">
             <ShortCard></ShortCard>
             <ShortCard></ShortCard>
             <ShortCard></ShortCard>

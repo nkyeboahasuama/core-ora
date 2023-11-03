@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import {
   HomePageWrapper,
-  PlayBtn,
   SongCard,
   SongDetails,
   SongWrapper,
@@ -12,12 +10,10 @@ import {
   Medium,
 } from "../../../ui/shared-components/atoms/typography/Typography.styled";
 import { Link } from "react-router-dom";
-import { BiPlayCircle } from "react-icons/bi";
 import PlayBtnContainer from "./PlayBtnContainer";
 
 const songs = songsGenerator(10);
 const HomePage = () => {
-  console.log("tuiw");
   return (
     <HomePageWrapper>
       {songs.map((song, idx) => (

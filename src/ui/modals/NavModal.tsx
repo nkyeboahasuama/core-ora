@@ -6,7 +6,7 @@ const NavModal = ({}) => {
     <BodyContainer
       width="100%"
       height="100%"
-      backgroundColor="yellow"
+      bg="yellow"
       style={{ position: "absolute", top: "80px" }}
     >
       NavModal

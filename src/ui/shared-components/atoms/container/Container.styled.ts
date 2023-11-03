@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export interface IBaseContainerProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  flexDir?: string;
+  dir?: string;
   height?: string;
   width?: string;
   gap?: string;
   flexWrap?: string;
-  padding?: string;
+  p?: string;
   margin?: string;
-  backgroundColor?: string;
+  bg?: string;
   justifyContent?: string;
   alignItems?: string;
   color?: string;
@@ -23,14 +23,14 @@ const BaseContainer = styled.div<IBaseContainerProps>`
   justify-content: ${({ justifyContent }) => justifyContent || "center"};
   align-items: ${({ alignItems }) => alignItems || "center"};
   text-align: center;
-  flex-direction: ${({ flexDir }) => flexDir || "row"};
-  flex-wrap: ${({ flexWrap }) => flexWrap};
+  flex-direction: ${({ dir }) => dir || "row"};
+  flex-wrap: ${({ flexWrap }) => flexWrap || "wrap"};
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   gap: ${({ gap }) => gap};
-  padding: ${({ padding }) => padding};
+  padding: ${({ p }) => p};
   margin: ${({ margin }) => margin};
-  background-color: ${({ backgroundColor }) => backgroundColor || "#2d2d2d"};
+  background-color: ${({ bg }) => bg || "#2d2d2d"};
   color: ${({ color }) => color || "#fcfcfc"};
   box-sizing: border-box;
 `;

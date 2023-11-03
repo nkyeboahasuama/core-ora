@@ -5,6 +5,7 @@ export const HomePageWrapper = styled.main`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: #2d2d2d;
 `;
 
 export const SongCard = styled.div`
@@ -22,6 +23,7 @@ export const PlayBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   &:hover {
     background-color: black;
     opacity: 50%;

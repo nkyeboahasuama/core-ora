@@ -20,7 +20,7 @@ const ProjectsCard = () => {
       <BodyContainer
         height="100%"
         width="100%"
-        flexDir="column"
+        dir="column"
         justifyContent="start"
         color="black"
       >
@@ -33,7 +33,7 @@ const ProjectsCard = () => {
         >
           <HeaderTwo>PROJECTS</HeaderTwo>
         </BodyContainer>
-        <BodyContainer flexDir="column" width="100%" padding="0px 0px">
+        <BodyContainer dir="column" width="100%" p="0px 0px">
           <table
             style={{
               width: "100%",
