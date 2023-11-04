@@ -1,7 +1,4 @@
-import styled from "styled-components";
-
-import React from "react";
-import { BackBtn, NextBtn } from "./Navigation.styles";
+import { BackBtn } from "./Navigation.styles";
 import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {

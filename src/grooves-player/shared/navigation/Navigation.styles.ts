@@ -7,7 +7,7 @@ export const BackBtn = styled(IoChevronBack)`
   height: 20px;
   width: 20px;
   padding: 5px;
-  margin: 10px;
+  /* margin: 10px; */
   border-radius: 50%;
   font-size: 20px;
   display: flex;

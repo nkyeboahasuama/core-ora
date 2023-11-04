@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const SearchbarContainer = styled.div`
   width: 60%;
-  height: 50%;
+  height: 40%;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0px 10px;
+  border-radius: 18px;
 `;
 export const SearchInput = styled.input`
   height: 80%;

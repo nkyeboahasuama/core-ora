@@ -1,5 +1,4 @@
-import React from "react";
-import { HeaderOne } from "../../../ui/shared-components/atoms/typography/Typography.styled";
+import { HeaderOne } from "../../shared/atoms/Typography.styled";
 import {
   HeaderWrapper,
   NavLinkContainer,
@@ -8,7 +7,6 @@ import {
   SidebarStyled,
 } from "./Sidebar.styles";
 import { BiHome, BiListOl, BiSolidSearch } from "react-icons/bi";
-import { IoAlbumsOutline } from "react-icons/io5";
 import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.styles";
 
 const Sidebar = () => {

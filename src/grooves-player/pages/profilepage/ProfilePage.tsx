@@ -1,18 +1,12 @@
-import { Wrapper } from "../../shared/atoms/Wrapper";
 import {
   ProfileDetails,
   ProfileImage,
   ProfileWrapper,
 } from "./ProfilePage.styles";
-import {
-  HeaderOne,
-  HeaderThree,
-  HeaderTwo,
-  Normal,
-} from "../../../ui/shared-components/atoms/typography/Typography.styled";
-import { BodyContainer } from "../../../ui/shared-components/atoms/container/Container.styled";
+import { HeaderOne, HeaderThree } from "../../shared/atoms/Typography.styled";
+import { BodyContainer } from "../../shared/atoms/Container.styled";
 import { songsGenerator } from "../../helpers/songGenerator";
-import SongContainer from "../homepage/SongContainer";
+import SongContainer from "../../shared/songContainer/SongContainer";
 import { BsPerson } from "react-icons/bs";
 
 const mostPlayed = songsGenerator(3);
