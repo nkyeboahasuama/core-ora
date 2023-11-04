@@ -7,6 +7,7 @@ import Sidebar from "./grooves-player/layout/sidebar/Sidebar";
 import MainSection from "./grooves-player/layout/main/MainSection";
 import styled from "styled-components";
 import SearchPage from "./grooves-player/pages/searchpage/SearchPage";
+import PlaylistPage from "./grooves-player/pages/playlistpage/PlaylistPage";
 
 const BodyContentContainer = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="/playlist/:id" element={<PlaylistPage />} />
             </Routes>
           </MainSection>
         </BodyContentContainer>

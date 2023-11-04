@@ -8,7 +8,9 @@ import {
 } from "./Sidebar.styles";
 import { BiHome, BiListOl, BiSolidSearch } from "react-icons/bi";
 import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.styles";
+import { songsGenerator } from "../../helpers/songGenerator";
 
+const songs = songsGenerator(4);
 const Sidebar = () => {
   return (
     <SidebarStyled>
@@ -37,10 +39,12 @@ const Sidebar = () => {
           <HeaderOne>PLAYLISTS</HeaderOne>
         </HeaderWrapper>
         <NavLinksWraper>
-          <SidebarNavLink to={"/playlists"}>
-            <BiListOl />
-            Mood 0
-          </SidebarNavLink>
+          {songs.map((song, idx) => (
+            <SidebarNavLink key={idx} to={`/playlist/${idx}`}>
+              <BiListOl />
+              {song.title}
+            </SidebarNavLink>
+          ))}
         </NavLinksWraper>
       </NavLinkContainer>
     </SidebarStyled>
