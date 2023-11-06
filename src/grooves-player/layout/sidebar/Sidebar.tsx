@@ -11,7 +11,7 @@ import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.style
 import { songsGenerator } from "../../helpers/songGenerator";
 
 const songs = songsGenerator(4);
-const Sidebar = () => {
+const Sidebar = ({ playlists }: { playlists: [] }) => {
   return (
     <SidebarStyled>
       <GroovesLogoContainer>
@@ -23,7 +23,7 @@ const Sidebar = () => {
         </HeaderWrapper>
 
         <NavLinksWraper>
-          <SidebarNavLink to={"/"}>
+          <SidebarNavLink to={"/home"}>
             <BiHome /> Home
           </SidebarNavLink>
 
@@ -39,12 +39,13 @@ const Sidebar = () => {
           <HeaderOne>PLAYLISTS</HeaderOne>
         </HeaderWrapper>
         <NavLinksWraper>
-          {songs.map((song, idx) => (
-            <SidebarNavLink key={idx} to={`/playlist/${idx}`}>
-              <BiListOl />
-              {song.title}
-            </SidebarNavLink>
-          ))}
+          {playlists &&
+            playlists.map((playlist: any, idx) => (
+              <SidebarNavLink key={idx} to={`/playlist/${idx}`}>
+                <BiListOl />
+                {playlist.name}
+              </SidebarNavLink>
+            ))}
         </NavLinksWraper>
       </NavLinkContainer>
     </SidebarStyled>

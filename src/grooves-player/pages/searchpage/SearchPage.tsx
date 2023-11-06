@@ -4,13 +4,16 @@ import { songsGenerator } from "../../helpers/songGenerator";
 import SongContainer from "../../shared/songContainer/SongContainer";
 
 const songs = songsGenerator(3);
-const SearchPage = () => {
+const SearchPage = ({ tracks }: { tracks: [] }) => {
   return (
     <SearchPageWrapper>
       <Header />
-      {songs.map((song, idx) => (
-        <SongContainer searchCard song={song} key={idx} />
-      ))}
+      {tracks &&
+        tracks
+          .slice(5, 8)
+          .map((song, idx) => (
+            <SongContainer searchCard song={song} key={idx} />
+          ))}
     </SearchPageWrapper>
   );
 };
