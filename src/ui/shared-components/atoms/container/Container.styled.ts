@@ -12,14 +12,14 @@ export interface IBaseContainerProps
   backgroundColor?: string;
   justifyContent?: string;
   alignItems?: string;
+  color?: string;
 }
 
 // export const BaseContainer = styled.div<IBaseContainerProps>`
 
 // `;
 
-export const BodyContainer = styled.div<IBaseContainerProps>`
-  display: flex;
+const BaseContainer = styled.div<IBaseContainerProps>`
   justify-content: ${({ justifyContent }) => justifyContent || "center"};
   align-items: ${({ alignItems }) => alignItems || "center"};
   text-align: center;
@@ -30,5 +30,21 @@ export const BodyContainer = styled.div<IBaseContainerProps>`
   gap: ${({ gap }) => gap};
   padding: ${({ padding }) => padding};
   margin: ${({ margin }) => margin};
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundColor }) => backgroundColor || "#2d2d2d"};
+  color: ${({ color }) => color || "#fcfcfc"};
+  box-sizing: border-box;
+`;
+
+export const BodyContainer = styled(BaseContainer)<IBaseContainerProps>`
+  display: flex;
+`;
+
+export const Container = styled(BaseContainer)`
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  width: 100%;
+  padding: 20px;
+  overflow-y: auto;
 `;

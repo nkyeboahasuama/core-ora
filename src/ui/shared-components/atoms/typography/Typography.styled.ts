@@ -13,7 +13,7 @@ export const Base = styled.p<BaseProps>`
   font-weight: 300;
   padding: ${({ p }) => p || "0px"};
   margin: ${({ m }) => m || "0px"};
-  color: ${({ color }) => color || "white"};
+  color: ${({ color }) => color || "#fcfcfc"};
   text-align: ${({ textalign }) => textalign};
   :link {
     text-decoration: none;
@@ -21,15 +21,15 @@ export const Base = styled.p<BaseProps>`
 `;
 
 export const HeaderOne = styled(Base)`
-  font-size: 25px;
+  font-size: 24px;
   font-weight: ${({ weight }) => weight || 700};
 `;
 export const HeaderTwo = styled(Base)`
-  font-size: 20px;
+  font-size: 19px;
   font-weight: ${({ weight }) => weight || 600};
 `;
 export const HeaderThree = styled(Base)`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: ${({ weight }) => weight || 500};
 `;
 export const Normal = styled(Base)`
