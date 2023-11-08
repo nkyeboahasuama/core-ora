@@ -1,14 +1,10 @@
 import { HomePageBodyWrapper, HomePageWrapper } from "./HomePage.styles";
-import { songsGenerator } from "../../helpers/songGenerator";
 import SongContainer from "../../shared/songContainer/SongContainer";
 import Header from "../../layout/header/Header";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getTokenFromUri } from "../../helpers/getTokenFromUri";
-import { useNavigate } from "react-router-dom";
 import { HeaderOne } from "../../shared/atoms/Typography.styled";
 import { BodyContainer } from "../../shared/atoms/Container.styled";
-
-// const songs = songsGenerator(20);
 
 interface IHomepageProps {
   tracks: [];
