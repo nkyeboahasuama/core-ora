@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const GroovesLogoContainer = styled.div`
+  font-family: cursive;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: orange;
-  box-shadow: 0px 0px 10px red;
-  margin: 0 10px;
-  padding: 5px 10px;
+  background: transparent;
+  margin-bottom: 10px;
+  padding: 0px 10px;
   border-radius: 5px;
+  height: 80px;
 `;

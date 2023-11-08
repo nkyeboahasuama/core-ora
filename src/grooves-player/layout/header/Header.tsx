@@ -1,18 +1,28 @@
-import React from "react";
-import { HeaderStyled, ProfileIcon } from "./Header.styles";
-import { HeaderOne } from "../../../ui/shared-components/atoms/typography/Typography.styled";
+import { useLocation } from "react-router-dom";
+import { HeaderContainer, ProfileIcon } from "./Header.styles";
+
+import Navigation from "../../shared/navigation/Navigation";
 import Searchbar from "../../shared/searchbar/Searchbar";
-import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.styles";
 
 const Header = () => {
+  const location = useLocation();
+  const onSearchPage = location.pathname === "/search";
+
   return (
-    <HeaderStyled>
-      <GroovesLogoContainer>
-        <HeaderOne>Grooves</HeaderOne>
-      </GroovesLogoContainer>
-      <Searchbar />
-      <ProfileIcon />
-    </HeaderStyled>
+    <HeaderContainer
+      style={{
+        backgroundColor: `${onSearchPage && "#b91d1d"}`,
+      }}
+    >
+      <Navigation />
+      {onSearchPage && <Searchbar />}
+      <ProfileIcon
+        to={"/profile"}
+        style={{
+          backgroundColor: `${onSearchPage && "green"}`,
+        }}
+      />
+    </HeaderContainer>
   );
 };
 
