@@ -1,17 +1,19 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { CloseBtn } from "../../shared/atoms/CloseBtn";
 import { BsPlayCircleFill } from "react-icons/bs";
+import { HeaderOne, HeaderTwo } from "../atoms/Typography.styled";
 
-export const SongCard = styled.div`
+export const SongCard = styled.img`
   height: 180px;
   width: 180px;
-  background: #333333;
+  /* background: #333333; */
   display: flex;
   justify-content: end;
   align-items: end;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 2px 2px 11px #1a1a1a;
+  z-index: 0;
 `;
 
 export const SongWrapper = styled.div`
@@ -20,10 +22,12 @@ export const SongWrapper = styled.div`
   padding: 15px;
   background-color: #181818;
   border-radius: 10px;
+  z-index: 1;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #282828;
+    /* background-color: #282828; */
+    background-color: red;
     cursor: pointer;
   }
 `;
@@ -42,6 +46,9 @@ export const SearchCloseBtn = styled(CloseBtn)`
 `;
 
 export const PlayBtn = styled(BsPlayCircleFill)`
+  position: absolute;
+  bottom: 20%;
+  right: 0%;
   font-size: 0px;
   color: #1db954;
   background-color: black;
@@ -57,5 +64,14 @@ export const PlayBtn = styled(BsPlayCircleFill)`
 `;
 
 export const SongDetails = styled.div`
+  text-align: start;
   padding: 5px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+`;
+
+export const SongTitle = styled(HeaderTwo)`
+  width: 140px;
+  white-space: nowrap;
 `;

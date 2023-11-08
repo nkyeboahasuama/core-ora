@@ -3,6 +3,9 @@ import { HeaderContainer, ProfileIcon } from "./Header.styles";
 
 import Navigation from "../../shared/navigation/Navigation";
 import Searchbar from "../../shared/searchbar/Searchbar";
+import { ProfileImage } from "../../pages/profilepage/ProfilePage.styles";
+import { BsPerson } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
@@ -16,12 +19,12 @@ const Header = () => {
     >
       <Navigation />
       {onSearchPage && <Searchbar />}
-      <ProfileIcon
-        to={"/profile"}
-        style={{
-          backgroundColor: `${onSearchPage && "green"}`,
-        }}
-      />
+
+      <Link to={"/profile"}>
+        <ProfileIcon>
+          <BsPerson />
+        </ProfileIcon>
+      </Link>
     </HeaderContainer>
   );
 };
