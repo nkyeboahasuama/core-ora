@@ -10,6 +10,9 @@ import styled from "styled-components";
 import SearchPage from "./grooves-player/pages/searchpage/SearchPage";
 import PlaylistPage from "./grooves-player/pages/playlistpage/PlaylistPage";
 import Login from "./grooves-player/pages/loginpage/Login";
+import { useDispatch } from "react-redux";
+import { useAppDispatch } from "./redux/hooks/hooks";
+import { setTracks } from "./redux/features/tracksSlice";
 
 const BodyContentContainer = styled.div`
   display: flex;
@@ -19,27 +22,14 @@ const BodyContentContainer = styled.div`
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [tracks, setTracks] = useState<[]>([]);
   const [playlists, setPlaylists] = useState<[]>([]);
+  const dispatch = useAppDispatch();
 
   let accessToken = localStorage.getItem("access_token");
 
   useEffect(() => {
-    getUserTopTracks();
     getUserPlaylists();
   }, []);
-
-  async function getUserTopTracks() {
-    setLoading(true);
-    const response = await fetch("https://api.spotify.com/v1/me/top/tracks", {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    });
-    const data = await response.json();
-    setLoading(false);
-    setTracks(data.items);
-  }
 
   async function getUserPlaylists() {
     setLoading(true);
@@ -60,19 +50,16 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <BodyContentContainer>
-          <Sidebar playlists={playlists} />
+          <Sidebar />
           <MainSection>
             <Routes>
               <Route path="/" element={<Login />} />
-              <Route
-                path="/home"
-                element={<HomePage tracks={tracks} loading={loading} />}
-              />
-              <Route
+              <Route path="/home" element={<HomePage />} />
+              {/* <Route
                 path="/profile"
                 element={<ProfilePage tracks={tracks} />}
               />
-              <Route path="/search" element={<SearchPage tracks={tracks} />} />
+              <Route path="/search" element={<SearchPage tracks={tracks} />} /> */}
               <Route
                 path="/playlist/:id"
                 element={<PlaylistPage playlists={playlists} />}
