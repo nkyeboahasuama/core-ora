@@ -9,15 +9,15 @@ import {
 } from "./Sidebar.styles";
 import { BiHome, BiListOl, BiSolidSearch } from "react-icons/bi";
 import { GroovesLogoContainer } from "../../shared/grooveslogo/grooveslogo.styles";
-import { songsGenerator } from "../../helpers/songGenerator";
 import { spotifyApiService } from "../../../services/spotifyApiServices";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 
-const songs = songsGenerator(4);
 const Sidebar = () => {
   const dispatch = useAppDispatch();
   const playlists = useAppSelector((state) => state.playlists);
+  const currentUser = useAppSelector((state) => state.currentUser);
 
+  console.log(currentUser);
   useEffect(() => {
     spotifyApiService.getUserPlaylists(dispatch);
   }, []);

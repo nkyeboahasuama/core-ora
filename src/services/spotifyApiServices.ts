@@ -5,19 +5,28 @@ import { AppDispatch } from "../redux/store/store";
 class SpotifyApiService {
   private accessToken: string | null;
   constructor() {
-    this.accessToken = localStorage.getItem("access_token");
+    this.accessToken = localStorage.getItem("accessToken");
+  }
+
+  private async fetchData(url: string) {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: "Bearer " + this.accessToken,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Could not fetch data, ${response.status}`);
+    }
+    return response.json();
   }
 
   async getUserTopTracks(dispatch: AppDispatch) {
     try {
-      const response = await fetch("https://api.spotify.com/v1/me/top/tracks", {
-        headers: {
-          Authorization: "Bearer " + this.accessToken,
-        },
-      });
-      const data = await response.json();
+      const data = await this.fetchData(
+        "https://api.spotify.com/v1/me/top/tracks"
+      );
       dispatch(setTracks(data.items));
-      console.log(data.items);
     } catch (error) {
       console.error(error);
     }
@@ -25,34 +34,33 @@ class SpotifyApiService {
 
   async getUserPlaylists(dispatch: AppDispatch) {
     try {
-      const response = await fetch(
-        "https://api.spotify.com/v1/me/playlists?limit=3",
-        {
-          headers: {
-            Authorization: "Bearer " + this.accessToken,
-          },
-        }
+      const data = await this.fetchData(
+        "https://api.spotify.com/v1/me/playlists?limit=3"
       );
-      const data = await response.json();
       dispatch(setPlaylists(data.items));
-      console.log(data.items);
     } catch (error) {
       console.error(error);
     }
   }
 
   async getPlaylistTracks(playlist: any) {
-    console.log("yie");
-    const response = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
-      {
-        headers: {
-          Authorization: "Bearer " + this.accessToken,
-        },
-      }
-    );
-    const data = await response.json();
-    // setPlaylistTracks(data.items);
+    try {
+      const data = await this.fetchData(
+        `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`
+      );
+      return data.items;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getProfile() {
+    try {
+      const data = await this.fetchData("https://api.spotify.com/v1/me");
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 export const spotifyApiService = new SpotifyApiService();

@@ -7,21 +7,24 @@ import { HeaderOne, HeaderTwo } from "../../shared/atoms/Typography.styled";
 import { BodyContainer } from "../../shared/atoms/Container.styled";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks/hooks";
 import { spotifyApiService } from "../../../services/spotifyApiServices";
+import { setCurrentUser } from "../../../redux/features/currentUserSlice";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const tracks = useAppSelector((state) => state.tracks);
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.currentUser);
 
   useEffect(() => {
     const hash = window.location.hash;
     const token = getTokenFromUri(hash);
     if (token) {
-      localStorage.setItem("access_token", token);
+      localStorage.setItem("accessToken", token);
       window.history.replaceState({}, document.title, window.location.pathname);
     }
     setLoading(true);
-    tracks.length < 1 && spotifyApiService.getUserTopTracks(dispatch);
+    spotifyApiService.getUserTopTracks(dispatch);
+    console.log(loading);
     setLoading(false);
   }, []);
 
@@ -32,7 +35,9 @@ const HomePage = () => {
         <HeaderOne style={{ margin: "30px 0px" }}>
           MY TOP LISTENS {"\u{1F525}"}
         </HeaderOne>
-        {loading && <HeaderTwo>Loading...</HeaderTwo>}
+        {loading && (
+          <HeaderTwo style={{ color: "white" }}>Loading...</HeaderTwo>
+        )}
 
         <BodyContainer style={{ justifyContent: "space-evenly" }}>
           {tracks &&

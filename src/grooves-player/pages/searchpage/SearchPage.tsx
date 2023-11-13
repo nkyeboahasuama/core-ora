@@ -1,10 +1,10 @@
 import Header from "../../layout/header/Header";
 import { SearchPageWrapper } from "./SearchPage.styles";
-import { songsGenerator } from "../../helpers/songGenerator";
 import SongContainer from "../../shared/songContainer/SongContainer";
+import { useAppSelector } from "../../../redux/hooks/hooks";
 
-const songs = songsGenerator(3);
-const SearchPage = ({ tracks }: { tracks: [] }) => {
+const SearchPage = () => {
+  const tracks = useAppSelector((state) => state.tracks);
   return (
     <SearchPageWrapper>
       <Header />
