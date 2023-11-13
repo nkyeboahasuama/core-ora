@@ -1,28 +1,33 @@
 import { HomePageBodyWrapper, HomePageWrapper } from "./HomePage.styles";
 import SongContainer from "../../shared/songContainer/SongContainer";
 import Header from "../../layout/header/Header";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getTokenFromUri } from "../../helpers/getTokenFromUri";
-import { HeaderOne } from "../../shared/atoms/Typography.styled";
+import { HeaderOne, HeaderTwo } from "../../shared/atoms/Typography.styled";
 import { BodyContainer } from "../../shared/atoms/Container.styled";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks/hooks";
+import { spotifyApiService } from "../../../services/spotifyApiServices";
+import { setCurrentUser } from "../../../redux/features/currentUserSlice";
 
-interface IHomepageProps {
-  tracks: [];
-  loading?: boolean;
-}
+const HomePage = () => {
+  const [loading, setLoading] = useState(false);
+  const tracks = useAppSelector((state) => state.tracks);
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.currentUser);
 
-const HomePage: React.FC<IHomepageProps> = ({ tracks, loading }) => {
   useEffect(() => {
     const hash = window.location.hash;
     const token = getTokenFromUri(hash);
-
     if (token) {
-      localStorage.setItem("access_token", token);
+      localStorage.setItem("accessToken", token);
       window.history.replaceState({}, document.title, window.location.pathname);
     }
+    setLoading(true);
+    spotifyApiService.getUserTopTracks(dispatch);
+    console.log(loading);
+    setLoading(false);
   }, []);
 
-  console.log(tracks);
   return (
     <HomePageWrapper>
       <Header />
@@ -30,7 +35,9 @@ const HomePage: React.FC<IHomepageProps> = ({ tracks, loading }) => {
         <HeaderOne style={{ margin: "30px 0px" }}>
           MY TOP LISTENS {"\u{1F525}"}
         </HeaderOne>
-        {loading && <div>Loading...</div>}
+        {loading && (
+          <HeaderTwo style={{ color: "white" }}>Loading...</HeaderTwo>
+        )}
 
         <BodyContainer style={{ justifyContent: "space-evenly" }}>
           {tracks &&

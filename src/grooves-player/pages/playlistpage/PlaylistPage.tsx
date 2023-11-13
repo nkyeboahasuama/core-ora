@@ -15,38 +15,39 @@ import {
 
 import SongContainer from "../../shared/songContainer/SongContainer";
 import { ProfileDetails } from "../profilepage/ProfilePage.styles";
+import { spotifyApiService } from "../../../services/spotifyApiServices";
+import { useAppSelector } from "../../../redux/hooks/hooks";
 
-const PlaylistPage = ({ playlists }: { playlists: [] }) => {
+const PlaylistPage = () => {
   const [playlist, setPlaylist] = useState<any | null>(null);
   const [playlistTracks, setPlaylistTracks] = useState<[]>([]);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
-  let accessToken = localStorage.getItem("access_token");
+  const playlists = useAppSelector((state) => state.playlists);
 
   useEffect(() => {
-    if (id) {
-      const playlistRes = playlists[parseInt(id)];
-      setPlaylist(playlistRes);
-      getPlaylistTracks(playlistRes);
-    }
-  }, [id]);
+    const fetchPlaylistTracks = async () => {
+      if (id) {
+        const playlistResponse = playlists[parseInt(id)];
+        setPlaylist(playlistResponse);
+        setLoading(true);
 
-  async function getPlaylistTracks(playlist: any) {
-    setLoading(true);
-    console.log("yie");
-    const response = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
+        try {
+          const data = await spotifyApiService.getPlaylistTracks(
+            playlistResponse
+          );
+          setPlaylistTracks(data);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
       }
-    );
-    const data = await response.json();
-    setLoading(false);
-    setPlaylistTracks(data.items);
-  }
+    };
+
+    fetchPlaylistTracks();
+  }, [id, playlists]);
 
   return (
     <PlaylistPageWrapper>
