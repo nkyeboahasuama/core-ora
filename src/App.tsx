@@ -9,6 +9,7 @@ import styled from "styled-components";
 import PlaylistPage from "./grooves-player/pages/playlistpage/PlaylistPage";
 import Login from "./grooves-player/pages/loginpage/Login";
 import SearchPage from "./grooves-player/pages/searchpage/SearchPage";
+import Footer from "./grooves-player/layout/footer/Footer";
 
 const BodyContentContainer = styled.div`
   display: flex;
@@ -17,7 +18,6 @@ const BodyContentContainer = styled.div`
 `;
 
 function App() {
-  console.log("in app");
   return (
     <div className="App">
       <BrowserRouter>
@@ -33,6 +33,7 @@ function App() {
             </Routes>
           </MainSection>
         </BodyContentContainer>
+        <Footer />
       </BrowserRouter>
     </div>
   );
