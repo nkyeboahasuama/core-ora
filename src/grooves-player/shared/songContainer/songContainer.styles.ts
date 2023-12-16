@@ -1,6 +1,10 @@
 import styled, { keyframes } from "styled-components";
 import { CloseBtn } from "../../shared/atoms/CloseBtn";
-import { BsPlayCircleFill } from "react-icons/bs";
+import {
+  BsPauseBtnFill,
+  BsPauseCircle,
+  BsPlayCircleFill,
+} from "react-icons/bs";
 import { HeaderOne, HeaderTwo } from "../atoms/Typography.styled";
 
 export const SongCard = styled.img`
@@ -61,6 +65,19 @@ export const PlayBtn = styled(BsPlayCircleFill)`
     font-size: 40px;
     z-index: 1;
   }
+`;
+export const PauseBtn = styled(BsPauseCircle)`
+  position: absolute;
+  bottom: 20%;
+  right: 0%;
+  font-size: 40px;
+  color: black;
+  background-color: #1db954;
+  border-radius: 50%;
+  border: none;
+  margin: 10px;
+  transition: font-size 0.3s ease;
+  z-index: 1;
 `;
 
 export const SongDetails = styled.div`

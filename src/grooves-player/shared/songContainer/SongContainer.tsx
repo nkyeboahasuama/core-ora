@@ -1,4 +1,6 @@
+import { useState, useRef, useEffect } from "react";
 import {
+  PauseBtn,
   PlayBtn,
   SearchCloseBtn,
   SongCard,
@@ -8,33 +10,67 @@ import {
 } from "../songContainer/songContainer.styles";
 import { Link } from "react-router-dom";
 import { HeaderTwo, Medium } from "../atoms/Typography.styled";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import {
+  setCurrentTrack,
+  toogleTrackPlay,
+} from "../../../redux/features/currentTrackSlice";
+import { ITrack } from "../../types";
 
 interface ISongContainer {
-  song: any;
+  song: ITrack;
   searchCard?: boolean;
+  play?: (song: any) => void;
 }
-const SongContainer: React.FC<ISongContainer> = ({ song, searchCard }) => {
-  const handleRemoveSong = () => {
-    console.log("remove");
+const SongContainer: React.FC<ISongContainer> = ({
+  song,
+  searchCard,
+  play,
+}) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<null | HTMLAudioElement>(null);
+  const dispatch = useAppDispatch();
+  const currentPlayingSong = useAppSelector((state) => state.currentTrack);
+
+  const handlePlaySong = () => {
+    setIsPlaying(true);
+    dispatch(setCurrentTrack(song));
+    play && play(song);
+    dispatch(toogleTrackPlay("play"));
+
+    audioRef.current && audioRef.current.play();
   };
 
-  const handlePlaySong = (event: React.MouseEvent<SVGAElement>) => {
-    event.preventDefault();
+  const handlePauseSong = () => {
+    setIsPlaying(false);
+    dispatch(toogleTrackPlay("pause"));
+    audioRef.current && audioRef.current.pause();
   };
 
+  console.log("d");
+
+  // useEffect(() => {
+  //   song.
+  // }, []);
   return (
     <>
       {" "}
       <SongWrapper>
-        {searchCard && <SearchCloseBtn onClick={handleRemoveSong} />}
-        <Link to={`/${song.name}`} style={{ textDecoration: "none" }}>
+        {searchCard && <SearchCloseBtn />}
+        <div>
           <SongCard src={song.album.images[0].url} />
-          <PlayBtn onClick={handlePlaySong} />
+          {play && <button onClick={() => play(song)}>Play</button>}
+          {isPlaying ? (
+            <PauseBtn onClick={handlePauseSong} />
+          ) : (
+            <PlayBtn onClick={handlePlaySong} />
+          )}
+          <audio src={song.preview_url} ref={audioRef}></audio>
           <SongDetails>
             <SongTitle>{song.name}</SongTitle>
             <Medium>{song.artists[0].name}</Medium>
           </SongDetails>
-        </Link>{" "}
+        </div>
       </SongWrapper>
     </>
   );

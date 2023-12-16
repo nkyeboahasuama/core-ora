@@ -1,4 +1,4 @@
-import { BsPlayCircleFill } from "react-icons/bs";
+import { BsPauseCircleFill, BsPlayCircleFill } from "react-icons/bs";
 import { IoPlaySkipBackSharp, IoPlaySkipForward } from "react-icons/io5";
 import styled from "styled-components";
 
@@ -62,6 +62,15 @@ export const SongBackBtn = styled(IoPlaySkipBackSharp)`
 `;
 
 export const SongPlayBtn = styled(BsPlayCircleFill)`
+  font-size: 35px;
+  color: white;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+export const SongPauseBtn = styled(BsPauseCircleFill)`
   font-size: 35px;
   color: white;
 

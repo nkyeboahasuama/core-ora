@@ -3,12 +3,12 @@ import { setTracks } from "../redux/features/tracksSlice";
 import { AppDispatch } from "../redux/store/store";
 
 class SpotifyApiService {
-  private accessToken: string | null;
-  constructor() {
-    this.accessToken = localStorage.getItem("accessToken");
+  private get accessToken(): string | null {
+    return localStorage.getItem("accessToken");
   }
 
   private async fetchData(url: string) {
+    console.log(this.accessToken);
     const response = await fetch(url, {
       headers: {
         Authorization: "Bearer " + this.accessToken,

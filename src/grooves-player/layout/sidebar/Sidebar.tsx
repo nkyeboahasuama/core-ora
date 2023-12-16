@@ -17,10 +17,9 @@ const Sidebar = () => {
   const playlists = useAppSelector((state) => state.playlists);
   const currentUser = useAppSelector((state) => state.currentUser);
 
-  console.log(currentUser);
   useEffect(() => {
-    spotifyApiService.getUserPlaylists(dispatch);
-  }, []);
+    currentUser && spotifyApiService.getUserPlaylists(dispatch);
+  }, [currentUser]);
 
   return (
     <SidebarStyled>
