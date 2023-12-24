@@ -8,7 +8,6 @@ class SpotifyApiService {
   }
 
   private async fetchData(url: string) {
-    console.log(this.accessToken);
     const response = await fetch(url, {
       headers: {
         Authorization: "Bearer " + this.accessToken,

@@ -5,7 +5,6 @@ const tracksSlice = createSlice({
   initialState: [],
   reducers: {
     setTracks: (state, action: PayloadAction<[]>) => {
-      console.log("tracks");
       return (state = action.payload);
     },
   },

@@ -3,4 +3,6 @@ export interface ITrack {
   artists: { name: string }[];
   preview_url: string;
   album: { images: { url: string }[] };
+  id: string;
+  playing?: boolean;
 }

@@ -26,26 +26,19 @@ const HomePage = () => {
       spotifyApiService.getUserTopTracks(dispatch);
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-      if (!currentUser) {
+      const existingUserToken = localStorage.getItem("accessToken");
+      if (existingUserToken) {
+        console.log("User already exists");
+        dispatch(setCurrentUser(existingUserToken));
+        spotifyApiService.getUserTopTracks(dispatch);
+      } else if (!currentUser) {
         redirect("/");
         alert("Please login");
       }
     }
   }, []);
 
-  const play = (song: any) => {
-    setTrackNow(song);
-  };
-
-  const getCurrentSongFromArray =
-    tracks &&
-    tracks.map((track) => {
-      if (track.name === currentTrack.track?.name) {
-        return { isPlaying: false, track: { ...track } };
-      }
-      return track;
-    });
-
+  console.log(currentTrack);
   return (
     <HomePageWrapper>
       <Header />
@@ -59,8 +52,8 @@ const HomePage = () => {
 
         <BodyContainer style={{ justifyContent: "space-evenly" }}>
           {tracks &&
-            getCurrentSongFromArray.map((song: any, idx: number) => (
-              <SongContainer play={play} song={song} key={song.id} />
+            tracks.map((song: any, idx: number) => (
+              <SongContainer song={song} key={song.id} />
             ))}
         </BodyContainer>
       </HomePageBodyWrapper>

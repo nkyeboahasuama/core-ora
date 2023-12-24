@@ -8,50 +8,52 @@ import {
   SongTitle,
   SongWrapper,
 } from "../songContainer/songContainer.styles";
-import { Link } from "react-router-dom";
-import { HeaderTwo, Medium } from "../atoms/Typography.styled";
+import { Medium } from "../atoms/Typography.styled";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import {
-  setCurrentTrack,
-  toogleTrackPlay,
+  setPlaying,
+  setRecentPlayedTrack,
 } from "../../../redux/features/currentTrackSlice";
 import { ITrack } from "../../types";
 
 interface ISongContainer {
   song: ITrack;
   searchCard?: boolean;
-  play?: (song: any) => void;
 }
-const SongContainer: React.FC<ISongContainer> = ({
-  song,
-  searchCard,
-  play,
-}) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const SongContainer: React.FC<ISongContainer> = ({ song, searchCard }) => {
   const audioRef = useRef<null | HTMLAudioElement>(null);
   const dispatch = useAppDispatch();
-  const currentPlayingSong = useAppSelector((state) => state.currentTrack);
+  const currentTrack = useAppSelector((state) => state.currentTrack);
+
+  useEffect(() => {
+    if (currentTrack && currentTrack.recentlyPlayed.length > 0) {
+      if (currentTrack.recentlyPlayed[0].playing) {
+        audioRef.current && audioRef.current.play();
+      } else {
+        audioRef.current && audioRef.current.pause();
+      }
+    }
+  }, [currentTrack]);
 
   const handlePlaySong = () => {
-    setIsPlaying(true);
-    dispatch(setCurrentTrack(song));
-    play && play(song);
-    dispatch(toogleTrackPlay("play"));
-
-    audioRef.current && audioRef.current.play();
+    dispatch(setRecentPlayedTrack(song));
+    dispatch(setPlaying(true));
   };
 
   const handlePauseSong = () => {
-    setIsPlaying(false);
-    dispatch(toogleTrackPlay("pause"));
-    audioRef.current && audioRef.current.pause();
+    dispatch(setPlaying(false));
   };
 
-  console.log("d");
+  const currentPlayingTrack = () => {
+    if (song && currentTrack.recentlyPlayed.length > 0) {
+      return (
+        song.id === currentTrack.recentlyPlayed[0].id && currentTrack.playing
+      );
+    } else {
+      return false;
+    }
+  };
 
-  // useEffect(() => {
-  //   song.
-  // }, []);
   return (
     <>
       {" "}
@@ -59,13 +61,17 @@ const SongContainer: React.FC<ISongContainer> = ({
         {searchCard && <SearchCloseBtn />}
         <div>
           <SongCard src={song.album.images[0].url} />
-          {play && <button onClick={() => play(song)}>Play</button>}
-          {isPlaying ? (
+          {currentPlayingTrack() ? (
             <PauseBtn onClick={handlePauseSong} />
           ) : (
             <PlayBtn onClick={handlePlaySong} />
           )}
-          <audio src={song.preview_url} ref={audioRef}></audio>
+          {currentPlayingTrack() && (
+            <audio ref={audioRef}>
+              <source src={song.preview_url} />
+            </audio>
+          )}
+
           <SongDetails>
             <SongTitle>{song.name}</SongTitle>
             <Medium>{song.artists[0].name}</Medium>
@@ -77,3 +83,9 @@ const SongContainer: React.FC<ISongContainer> = ({
 };
 
 export default SongContainer;
+
+// what am i doing next.
+// i just created an array data structure, that accepts five of the most recently played
+// i also added a flag, that is a property known as playing which is set to true for any new added song and false for every other song
+// i need to figure out a way to play the songs based on the first item of the recent songs array.
+// this will help control the song from any part of the application and not only from the songcontainer.
