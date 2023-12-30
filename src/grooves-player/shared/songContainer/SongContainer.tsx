@@ -12,7 +12,7 @@ import { Medium } from "../atoms/Typography.styled";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import {
   setPlaying,
-  setRecentPlayedTrack,
+  setPlayingNowTrack,
 } from "../../../redux/features/currentTrackSlice";
 import { ITrack } from "../../types";
 
@@ -26,8 +26,8 @@ const SongContainer: React.FC<ISongContainer> = ({ song, searchCard }) => {
   const currentTrack = useAppSelector((state) => state.currentTrack);
 
   useEffect(() => {
-    if (currentTrack && currentTrack.recentlyPlayed.length > 0) {
-      if (currentTrack.recentlyPlayed[0].playing) {
+    if (currentTrack && currentTrack.recentlyPlayed) {
+      if (currentTrack.playing) {
         audioRef.current && audioRef.current.play();
       } else {
         audioRef.current && audioRef.current.pause();
@@ -36,7 +36,7 @@ const SongContainer: React.FC<ISongContainer> = ({ song, searchCard }) => {
   }, [currentTrack]);
 
   const handlePlaySong = () => {
-    dispatch(setRecentPlayedTrack(song));
+    dispatch(setPlayingNowTrack(song));
     dispatch(setPlaying(true));
   };
 
@@ -45,10 +45,8 @@ const SongContainer: React.FC<ISongContainer> = ({ song, searchCard }) => {
   };
 
   const currentPlayingTrack = () => {
-    if (song && currentTrack.recentlyPlayed.length > 0) {
-      return (
-        song.id === currentTrack.recentlyPlayed[0].id && currentTrack.playing
-      );
+    if (song && currentTrack.recentlyPlayed) {
+      return song.id === currentTrack.recentlyPlayed.id && currentTrack.playing;
     } else {
       return false;
     }

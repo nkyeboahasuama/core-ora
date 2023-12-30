@@ -8,44 +8,92 @@ import {
   SongTrackBtns,
   SongTrackingTimer,
 } from "./Footer.styles";
-import {
-  HeaderTwo,
-  Medium,
-  Normal,
-} from "../../shared/atoms/Typography.styled";
+import { HeaderTwo, Medium } from "../../shared/atoms/Typography.styled";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { setPlaying } from "../../../redux/features/currentTrackSlice";
-// import { toogleTrackPlay } from "../../../redux/features/currentTrackSlice";
+import {
+  setPlaying,
+  setPlayingNowTrack,
+} from "../../../redux/features/currentTrackSlice";
+import { useState } from "react";
+import { ITrack } from "../../types";
 
 const Footer = () => {
-  const currentTrack = useAppSelector(
+  // const [trackNumber, setTrackNumber] = useState(1);
+
+  const recentTracksArray = useAppSelector(
     (state) => state.currentTrack.recentlyPlayed
   );
-  const currentPlayingSong = useAppSelector(
-    (state) => state.currentTrack.playing
-  );
+  const currentPlayingSong = useAppSelector((state) => state.currentTrack);
   const currentUser = useAppSelector((state) => state.currentUser);
+  const tracks: ITrack[] = useAppSelector((state) => state.tracks);
   const dispatch = useAppDispatch();
 
   const handlePlaySong = () => {
-    if (currentUser) {
+    if (
+      currentUser &&
+      currentPlayingSong.recentlyPlayed &&
+      currentPlayingSong.playing === false
+    ) {
       dispatch(setPlaying(true));
     } else {
       console.log("Login to play");
+      return;
     }
   };
 
   const handlePauseSong = () => {
-    if (currentUser) {
+    if (
+      currentUser &&
+      currentPlayingSong.recentlyPlayed &&
+      currentPlayingSong.playing
+    ) {
       dispatch(setPlaying(false));
     } else {
       console.log("Login to pause");
+      return;
     }
   };
 
+  const handlePlayNextSong = () => {
+    if (currentPlayingSong.recentlyPlayed) {
+      const currentPlayingSongIndex = tracks.findIndex(
+        (track) => track.id === currentPlayingSong.recentlyPlayed?.id
+      );
+      if (currentPlayingSongIndex < tracks.length) {
+        const nextTrack = tracks[currentPlayingSongIndex + 1];
+        dispatch(setPlayingNowTrack(nextTrack));
+      } else {
+        console.log("This is the end of the list");
+        return;
+      }
+    } else {
+      console.log("Current song is null");
+    }
+  };
+
+  const handlePlayPreviousSong = () => {
+    if (currentPlayingSong.recentlyPlayed) {
+      const currentPlayingSongIndex = tracks.findIndex(
+        (track) => track.id === currentPlayingSong.recentlyPlayed?.id
+      );
+
+      if (
+        tracks.length > currentPlayingSongIndex &&
+        currentPlayingSongIndex > 0
+      ) {
+        const previousTrack = tracks[currentPlayingSongIndex - 1];
+        dispatch(setPlayingNowTrack(previousTrack));
+      } else {
+        console.log("This is the first track in the list");
+        return;
+      }
+    } else {
+      console.log("Current song is null");
+    }
+  };
   return (
     <FooterWrapper>
-      {currentTrack.length > 0 ? (
+      {currentPlayingSong.recentlyPlayed ? (
         <>
           <SongDetailsWrapper>
             <div
@@ -53,24 +101,26 @@ const Footer = () => {
             >
               <img
                 width={"60px"}
-                src={currentTrack[0].album.images[0].url}
+                src={currentPlayingSong.recentlyPlayed.album.images[0].url}
                 alt="d"
               />
             </div>
             <div>
-              <HeaderTwo>{currentTrack[0].name}</HeaderTwo>
-              <Medium>{currentTrack[0].artists[0].name}</Medium>
+              <HeaderTwo>{currentPlayingSong.recentlyPlayed.name}</HeaderTwo>
+              <Medium>
+                {currentPlayingSong.recentlyPlayed.artists[0].name}
+              </Medium>
             </div>
             {/* )} */}
           </SongDetailsWrapper>
           <SongTrackBtns>
-            <SongBackBtn />
-            {currentTrack[0] && currentPlayingSong ? (
+            <SongBackBtn onClick={handlePlayPreviousSong} />
+            {currentPlayingSong && currentPlayingSong.playing ? (
               <SongPauseBtn onClick={handlePauseSong} />
             ) : (
               <SongPlayBtn onClick={handlePlaySong} />
             )}
-            <SongForwardBtn />
+            <SongForwardBtn onClick={handlePlayNextSong} />
           </SongTrackBtns>
           <SongTrackingTimer>
             0:00

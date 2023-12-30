@@ -3,7 +3,7 @@ import SongContainer from "../../shared/songContainer/SongContainer";
 import Header from "../../layout/header/Header";
 import { useEffect, useState } from "react";
 import { getTokenFromUri } from "../../helpers/getTokenFromUri";
-import { HeaderOne, HeaderTwo } from "../../shared/atoms/Typography.styled";
+import { HeaderOne } from "../../shared/atoms/Typography.styled";
 import { BodyContainer } from "../../shared/atoms/Container.styled";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks/hooks";
 import { spotifyApiService } from "../../../services/spotifyApiServices";
@@ -13,7 +13,6 @@ import { redirect } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
-  const [trackNow, setTrackNow] = useState<any>();
   const tracks: ITrack[] = useAppSelector((state) => state.tracks);
   const currentTrack = useAppSelector((state) => state.currentTrack);
   const currentUser = useAppSelector((state) => state.currentUser);
@@ -52,7 +51,7 @@ const HomePage = () => {
 
         <BodyContainer style={{ justifyContent: "space-evenly" }}>
           {tracks &&
-            tracks.map((song: any, idx: number) => (
+            tracks.map((song: ITrack) => (
               <SongContainer song={song} key={song.id} />
             ))}
         </BodyContainer>
