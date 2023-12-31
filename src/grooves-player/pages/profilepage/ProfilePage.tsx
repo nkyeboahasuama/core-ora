@@ -5,37 +5,29 @@ import {
 } from "./ProfilePage.styles";
 import { HeaderOne, HeaderThree } from "../../shared/atoms/Typography.styled";
 import { BodyContainer } from "../../shared/atoms/Container.styled";
-import { songsGenerator } from "../../helpers/songGenerator";
 import SongContainer from "../../shared/songContainer/SongContainer";
 import { BsPerson } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../../redux/hooks/hooks";
+import { spotifyApiService } from "../../../services/spotifyApiServices";
 
 interface IUser {
   display_name: string;
 }
-const mostPlayed = songsGenerator(3);
 
-const ProfilePage = ({ tracks }: { tracks: [] }) => {
+const ProfilePage = () => {
   const [user, setUser] = useState<IUser | null>();
+  const tracks = useAppSelector((state) => state.currentDisplayedTracks);
 
   useEffect(() => {
-    async function getProfile() {
-      try {
-        let accessToken = localStorage.getItem("access_token");
-
-        const response = await fetch("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        });
-        const data = await response.json();
+    try {
+      const results = spotifyApiService.getProfile();
+      results.then((data) => {
         setUser(data);
-      } catch (err) {
-        setUser(null);
-        console.log(err);
-      }
+      });
+    } catch (error) {
+      console.error(error);
     }
-    getProfile();
   }, []);
 
   return (

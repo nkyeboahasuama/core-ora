@@ -15,39 +15,43 @@ import {
 
 import SongContainer from "../../shared/songContainer/SongContainer";
 import { ProfileDetails } from "../profilepage/ProfilePage.styles";
+import { spotifyApiService } from "../../../services/spotifyApiServices";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { ITrack } from "../../types";
 
-const PlaylistPage = ({ playlists }: { playlists: [] }) => {
+const PlaylistPage = () => {
   const [playlist, setPlaylist] = useState<any | null>(null);
-  const [playlistTracks, setPlaylistTracks] = useState<[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
-  let accessToken = localStorage.getItem("access_token");
+  const playlists = useAppSelector((state) => state.playlists);
+  const tracks: ITrack[] = useAppSelector(
+    (state) => state.currentDisplayedTracks
+  );
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id) {
-      const playlistRes = playlists[parseInt(id)];
-      setPlaylist(playlistRes);
-      getPlaylistTracks(playlistRes);
-    }
+    const fetchPlaylistTracks = async () => {
+      if (id) {
+        const playlistResponse = playlists[parseInt(id)];
+
+        try {
+          setPlaylist(playlistResponse);
+          setLoading(true);
+          await spotifyApiService.getPlaylistTracks(playlistResponse, dispatch);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          // console.log("here")
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchPlaylistTracks();
   }, [id]);
 
-  async function getPlaylistTracks(playlist: any) {
-    setLoading(true);
-    console.log("yie");
-    const response = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      }
-    );
-    const data = await response.json();
-    setLoading(false);
-    setPlaylistTracks(data.items);
-  }
-
+  console.log(loading);
   return (
     <PlaylistPageWrapper>
       <Header />
@@ -76,9 +80,9 @@ const PlaylistPage = ({ playlists }: { playlists: [] }) => {
         <HeaderOne>Loading...</HeaderOne>
       ) : (
         <>
-          {playlistTracks &&
-            playlistTracks.map((song: any, idx: number) => (
-              <SongContainer song={song.track} key={idx} />
+          {tracks &&
+            tracks.map((song: ITrack, idx: number) => (
+              <SongContainer song={song} key={song.id} />
             ))}
         </>
       )}

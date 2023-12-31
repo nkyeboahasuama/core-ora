@@ -2,7 +2,6 @@ import { LoginBtn, LoginPageWrapper } from "./Login.styles";
 
 const scope =
   "user-read-private user-read-email user-top-read playlist-read-private";
-// let accessToken = localStorage.getItem("access_token");
 
 const Login = () => {
   const handleLogin = async () => {
@@ -11,7 +10,7 @@ const Login = () => {
 
       window.location.href = endpoint;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

@@ -1,28 +1,56 @@
 import { HomePageBodyWrapper, HomePageWrapper } from "./HomePage.styles";
 import SongContainer from "../../shared/songContainer/SongContainer";
 import Header from "../../layout/header/Header";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getTokenFromUri } from "../../helpers/getTokenFromUri";
-import { HeaderOne } from "../../shared/atoms/Typography.styled";
+import { HeaderOne, HeaderTwo } from "../../shared/atoms/Typography.styled";
 import { BodyContainer } from "../../shared/atoms/Container.styled";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks/hooks";
+import { spotifyApiService } from "../../../services/spotifyApiServices";
+import { setCurrentUser } from "../../../redux/features/currentUserSlice";
+import { ITrack } from "../../types";
+import { redirect } from "react-router-dom";
 
-interface IHomepageProps {
-  tracks: [];
-  loading?: boolean;
-}
+const HomePage = () => {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useAppDispatch();
+  const tracks: ITrack[] = useAppSelector(
+    (state) => state.currentDisplayedTracks
+  );
+  const currentTrack = useAppSelector((state) => state.currentTrack);
+  const currentUser = useAppSelector((state) => state.currentUser);
 
-const HomePage: React.FC<IHomepageProps> = ({ tracks, loading }) => {
   useEffect(() => {
-    const hash = window.location.hash;
-    const token = getTokenFromUri(hash);
+    const fetchSongs = async () => {
+      const token = getTokenFromUri(window.location.hash);
+      if (token) {
+        localStorage.setItem("accessToken", token);
+        dispatch(setCurrentUser(token));
+        await spotifyApiService.getUserTopTracks(dispatch);
+        setLoading(false);
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
+      } else {
+        const existingUserToken = localStorage.getItem("accessToken");
+        if (existingUserToken) {
+          console.log("User already exists");
 
-    if (token) {
-      localStorage.setItem("access_token", token);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
+          dispatch(setCurrentUser(existingUserToken));
+          await spotifyApiService.getUserTopTracks(dispatch);
+          setLoading(false);
+        } else if (!currentUser) {
+          redirect("/");
+          alert("Please login");
+        }
+      }
+    };
+    fetchSongs();
   }, []);
 
-  console.log(tracks);
+  console.log(currentTrack);
   return (
     <HomePageWrapper>
       <Header />
@@ -30,14 +58,16 @@ const HomePage: React.FC<IHomepageProps> = ({ tracks, loading }) => {
         <HeaderOne style={{ margin: "30px 0px" }}>
           MY TOP LISTENS {"\u{1F525}"}
         </HeaderOne>
-        {loading && <div>Loading...</div>}
-
-        <BodyContainer style={{ justifyContent: "space-evenly" }}>
-          {tracks &&
-            tracks.map((song: any, idx: number) => (
-              <SongContainer song={song} key={idx} />
-            ))}
-        </BodyContainer>
+        {loading ? (
+          <HeaderTwo style={{ color: "white" }}>Loading...</HeaderTwo>
+        ) : (
+          <BodyContainer style={{ justifyContent: "space-evenly" }}>
+            {tracks &&
+              tracks.map((song: ITrack) => (
+                <SongContainer song={song} key={song.id} />
+              ))}
+          </BodyContainer>
+        )}
       </HomePageBodyWrapper>
     </HomePageWrapper>
   );
