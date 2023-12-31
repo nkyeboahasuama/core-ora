@@ -29,6 +29,7 @@ const SongContainer: React.FC<ISongContainer> = ({ song, searchCard }) => {
     if (currentTrack && currentTrack.recentlyPlayed) {
       if (currentTrack.playing) {
         audioRef.current && audioRef.current.play();
+        console.log(audioRef.current);
       } else {
         audioRef.current && audioRef.current.pause();
       }

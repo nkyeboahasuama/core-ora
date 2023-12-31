@@ -17,7 +17,7 @@ interface IUser {
 
 const ProfilePage = () => {
   const [user, setUser] = useState<IUser | null>();
-  const tracks = useAppSelector((state) => state.tracks);
+  const tracks = useAppSelector((state) => state.currentDisplayedTracks);
 
   useEffect(() => {
     try {

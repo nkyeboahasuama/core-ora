@@ -14,7 +14,7 @@ import {
   setPlaying,
   setPlayingNowTrack,
 } from "../../../redux/features/currentTrackSlice";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ITrack } from "../../types";
 
 const Footer = () => {
@@ -25,8 +25,26 @@ const Footer = () => {
   );
   const currentPlayingSong = useAppSelector((state) => state.currentTrack);
   const currentUser = useAppSelector((state) => state.currentUser);
-  const tracks: ITrack[] = useAppSelector((state) => state.tracks);
+  const tracks: ITrack[] = useAppSelector(
+    (state) => state.currentDisplayedTracks
+  );
   const dispatch = useAppDispatch();
+
+  const currentTrack = useAppSelector((state) => state.currentTrack);
+  const audioRef = useRef<null | HTMLAudioElement>(null);
+
+  // useEffect(() => {
+  //   if (currentPlayingSong && currentPlayingSong.recentlyPlayed) {
+  //     if (currentPlayingSong.playing) {
+  //       audioRef.current && audioRef.current.play();
+  //       console.log(audioRef.current);
+  //     } else {
+  //       audioRef.current && audioRef.current.pause();
+  //     }
+  //   }
+  // }, [currentPlayingSong]);
+
+  console.log(currentPlayingSong);
 
   const handlePlaySong = () => {
     if (
@@ -121,6 +139,12 @@ const Footer = () => {
               <SongPlayBtn onClick={handlePlaySong} />
             )}
             <SongForwardBtn onClick={handlePlayNextSong} />
+
+            {/* {currentPlayingSong && currentPlayingSong.recentlyPlayed && (
+              <audio ref={audioRef}>
+                <source src={currentPlayingSong.recentlyPlayed.preview_url} />
+              </audio>
+            )} */}
           </SongTrackBtns>
           <SongTrackingTimer>
             0:00

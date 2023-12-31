@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const tracksSlice = createSlice({
-  name: "tracks",
+  name: "currentDisplayedTracks",
   initialState: [],
   reducers: {
-    setTracks: (state, action: PayloadAction<[]>) => {
+    setCurrentDisplayedTracks: (state, action: PayloadAction<[]>) => {
       return (state = action.payload);
     },
   },
 });
-export const { setTracks } = tracksSlice.actions;
+export const { setCurrentDisplayedTracks } = tracksSlice.actions;
 export default tracksSlice.reducer;

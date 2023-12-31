@@ -6,7 +6,7 @@ import currentTrackReducer from "../features/currentTrackSlice";
 
 const store = configureStore({
   reducer: {
-    tracks: tracksReducer,
+    currentDisplayedTracks: tracksReducer,
     playlists: playlistsReducer,
     currentUser: currentUserReducer,
     currentTrack: currentTrackReducer,

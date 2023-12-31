@@ -1,5 +1,6 @@
+import { ITrack } from "../grooves-player/types";
 import { setPlaylists } from "../redux/features/playlistsSlice";
-import { setTracks } from "../redux/features/tracksSlice";
+import { setCurrentDisplayedTracks } from "../redux/features/tracksSlice";
 import { AppDispatch } from "../redux/store/store";
 
 class SpotifyApiService {
@@ -25,7 +26,7 @@ class SpotifyApiService {
       const data = await this.fetchData(
         "https://api.spotify.com/v1/me/top/tracks"
       );
-      dispatch(setTracks(data.items));
+      dispatch(setCurrentDisplayedTracks(data.items));
     } catch (error) {
       console.error(error);
     }
@@ -42,12 +43,13 @@ class SpotifyApiService {
     }
   }
 
-  async getPlaylistTracks(playlist: any) {
+  async getPlaylistTracks(playlist: any, dispatch: AppDispatch) {
     try {
       const data = await this.fetchData(
         `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`
       );
-      return data.items;
+      const filteredData = data.items.map((item: any) => item.track);
+      dispatch(setCurrentDisplayedTracks(filteredData));
     } catch (error) {
       console.log(error);
     }
