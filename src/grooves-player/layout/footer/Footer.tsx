@@ -18,11 +18,6 @@ import { useEffect, useRef, useState } from "react";
 import { ITrack } from "../../types";
 
 const Footer = () => {
-  // const [trackNumber, setTrackNumber] = useState(1);
-
-  const recentTracksArray = useAppSelector(
-    (state) => state.currentTrack.recentlyPlayed
-  );
   const currentPlayingSong = useAppSelector((state) => state.currentTrack);
   const currentUser = useAppSelector((state) => state.currentUser);
   const tracks: ITrack[] = useAppSelector(
@@ -30,19 +25,22 @@ const Footer = () => {
   );
   const dispatch = useAppDispatch();
 
-  const currentTrack = useAppSelector((state) => state.currentTrack);
   const audioRef = useRef<null | HTMLAudioElement>(null);
 
-  // useEffect(() => {
-  //   if (currentPlayingSong && currentPlayingSong.recentlyPlayed) {
-  //     if (currentPlayingSong.playing) {
-  //       audioRef.current && audioRef.current.play();
-  //       console.log(audioRef.current);
-  //     } else {
-  //       audioRef.current && audioRef.current.pause();
-  //     }
-  //   }
-  // }, [currentPlayingSong]);
+  useEffect(() => {
+    if (currentPlayingSong && currentPlayingSong.recentlyPlayed) {
+      if (audioRef.current) {
+        audioRef.current.src = currentPlayingSong.recentlyPlayed.preview_url;
+        audioRef.current.load();
+      }
+      if (currentPlayingSong.playing) {
+        audioRef.current && audioRef.current.play();
+        console.log(audioRef.current);
+      } else {
+        audioRef.current && audioRef.current.pause();
+      }
+    }
+  }, [currentPlayingSong]);
 
   console.log(currentPlayingSong);
 
@@ -129,7 +127,6 @@ const Footer = () => {
                 {currentPlayingSong.recentlyPlayed.artists[0].name}
               </Medium>
             </div>
-            {/* )} */}
           </SongDetailsWrapper>
           <SongTrackBtns>
             <SongBackBtn onClick={handlePlayPreviousSong} />
@@ -140,11 +137,11 @@ const Footer = () => {
             )}
             <SongForwardBtn onClick={handlePlayNextSong} />
 
-            {/* {currentPlayingSong && currentPlayingSong.recentlyPlayed && (
+            {currentPlayingSong && currentPlayingSong.recentlyPlayed && (
               <audio ref={audioRef}>
                 <source src={currentPlayingSong.recentlyPlayed.preview_url} />
               </audio>
-            )} */}
+            )}
           </SongTrackBtns>
           <SongTrackingTimer>
             0:00
