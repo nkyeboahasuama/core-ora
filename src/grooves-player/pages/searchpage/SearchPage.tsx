@@ -4,7 +4,7 @@ import SongContainer from "../../shared/songContainer/SongContainer";
 import { useAppSelector } from "../../../redux/hooks/hooks";
 
 const SearchPage = () => {
-  const tracks = useAppSelector((state) => state.tracks);
+  const tracks = useAppSelector((state) => state.currentDisplayedTracks);
   return (
     <SearchPageWrapper>
       <Header />

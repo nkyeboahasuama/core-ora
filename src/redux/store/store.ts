@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import tracksReducer from "../features/tracksSlice";
 import playlistsReducer from "../features/playlistsSlice";
 import currentUserReducer from "../features/currentUserSlice";
+import currentTrackReducer from "../features/currentTrackSlice";
 
 const store = configureStore({
   reducer: {
-    tracks: tracksReducer,
+    currentDisplayedTracks: tracksReducer,
     playlists: playlistsReducer,
     currentUser: currentUserReducer,
+    currentTrack: currentTrackReducer,
   },
 });
 

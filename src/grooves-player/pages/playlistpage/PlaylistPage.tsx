@@ -16,39 +16,42 @@ import {
 import SongContainer from "../../shared/songContainer/SongContainer";
 import { ProfileDetails } from "../profilepage/ProfilePage.styles";
 import { spotifyApiService } from "../../../services/spotifyApiServices";
-import { useAppSelector } from "../../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { ITrack } from "../../types";
 
 const PlaylistPage = () => {
   const [playlist, setPlaylist] = useState<any | null>(null);
-  const [playlistTracks, setPlaylistTracks] = useState<[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   const playlists = useAppSelector((state) => state.playlists);
+  const tracks: ITrack[] = useAppSelector(
+    (state) => state.currentDisplayedTracks
+  );
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchPlaylistTracks = async () => {
       if (id) {
         const playlistResponse = playlists[parseInt(id)];
-        setPlaylist(playlistResponse);
-        setLoading(true);
 
         try {
-          const data = await spotifyApiService.getPlaylistTracks(
-            playlistResponse
-          );
-          setPlaylistTracks(data);
+          setPlaylist(playlistResponse);
+          setLoading(true);
+          await spotifyApiService.getPlaylistTracks(playlistResponse, dispatch);
         } catch (error) {
           console.error(error);
         } finally {
+          // console.log("here")
           setLoading(false);
         }
       }
     };
 
     fetchPlaylistTracks();
-  }, [id, playlists]);
+  }, [id]);
 
+  console.log(loading);
   return (
     <PlaylistPageWrapper>
       <Header />
@@ -77,9 +80,9 @@ const PlaylistPage = () => {
         <HeaderOne>Loading...</HeaderOne>
       ) : (
         <>
-          {playlistTracks &&
-            playlistTracks.map((song: any, idx: number) => (
-              <SongContainer song={song.track} key={idx} />
+          {tracks &&
+            tracks.map((song: ITrack, idx: number) => (
+              <SongContainer song={song} key={song.id} />
             ))}
         </>
       )}
